@@ -18,16 +18,18 @@ public class MissileCommandScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log("mouse position is: (" + position.x + ", " + position.y + ")");
-            GameObject x = Instantiate(missile, position, Quaternion.identity);
+            Vector3 position = cam.ScreenToWorldPoint(Input.mousePosition);
+            GameObject newMissile = Instantiate(missile, GameConstants.PlayerMissileSpawnLocation, Quaternion.identity);
 
-            Quaternion target = Quaternion.Euler(0, 0, 45f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, target, Time.deltaTime * 1);
+            // forward is short hand for the z
+            Quaternion target = Quaternion.LookRotation(GameConstants.PlayerMissileSpawnLocation - position, Vector3.forward);
+            newMissile.transform.rotation = target;
 
-            Debug.Log("position: " + x.ToString());
+            // this produces a vector towards wherever the mouse is. need to normalize it somehow
+            newMissile.GetComponent<MissileMovementScript>().SetForceVector(position - GameConstants.PlayerMissileSpawnLocation);
 
-
+            // ONLY rotate around z remove the other
+            newMissile.transform.eulerAngles = new Vector3(0, 0, newMissile.transform.eulerAngles.z);
         }
     }
 }

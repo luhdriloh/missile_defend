@@ -5,6 +5,7 @@ using UnityEngine;
 public class MissileMovementScript : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
+    private Vector2 forceVector;
 
     // Use this for initialization
     void Start()
@@ -17,5 +18,11 @@ public class MissileMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rigidBody.AddForce(forceVector);
+    }
+
+    public void SetForceVector(Vector2 vector)
+    {
+        this.forceVector = vector;
     }
 }

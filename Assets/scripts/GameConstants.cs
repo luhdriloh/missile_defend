@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class GameConstants : MonoBehaviour
 {
-    public static Vector2 PlayerMissileSpawnLocation = new Vector2(0, -4f);
+    public static Vector3 PlayerMissileSpawnLocation = new Vector3(0, -4f, 0);
 }
