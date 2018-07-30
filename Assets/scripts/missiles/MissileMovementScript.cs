@@ -10,7 +10,6 @@ public class MissileMovementScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Debug.Log("missile movement");
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.AddForce(new Vector2(0, 10f));
     }

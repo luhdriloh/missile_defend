@@ -5,4 +5,5 @@ using UnityEngine;
 public class GameConstants : MonoBehaviour
 {
     public static Vector3 PlayerMissileSpawnLocation = new Vector3(0, -4f, 0);
+    public static float PlayerMissileSpeed = 4.5f;
 }
