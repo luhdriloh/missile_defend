@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyMissileCommandScript : MonoBehaviour
 {
-    private MissileObjectPool enemyMissileObjectPool;
+    private MissileObjectPool enemyMissilePool;
     private float timeSinceLastLaunch;
     private float timeLeftForNextLaunch;
 
@@ -12,7 +12,7 @@ public class EnemyMissileCommandScript : MonoBehaviour
 	{
         timeSinceLastLaunch = 0f;
         timeLeftForNextLaunch = 5f;
-        enemyMissileObjectPool = GetComponent<MissileObjectPool>();
+        enemyMissilePool = GetComponent<MissileObjectPool>();
 	}
 
 	// Update is called once per frame
@@ -22,35 +22,44 @@ public class EnemyMissileCommandScript : MonoBehaviour
 
         if (TimeToFire())
         {
-            FireMissile();
+            Vector2 target = FindTarget();
+
+            GameObject missile = enemyMissilePool.pool.BorrowFromPool();
+
+            missile.GetComponent<MissileMovementScript>().FireMissile(GetMissileStartPosition(), FindTarget());
             timeSinceLastLaunch = 0f;
             // todo: change time left for next launch here
         }
 
 	}
 
+    /// <summary>
+    /// Checks if you can fire a missile
+    /// </summary>
+    /// <returns><c>true</c>, if missile shot, <c>false</c> otherwise.</returns>
     private bool TimeToFire()
     {
-        if (timeSinceLastLaunch >= timeLeftForNextLaunch) {
+        if (timeSinceLastLaunch >= timeLeftForNextLaunch)
+        {
             return true;
         }
 
         return false;
     }
 
-    public void FireMissile()
+    /// <summary>
+    /// Finds a target down in the city
+    /// </summary>
+    /// <returns>The target.</returns>
+    private Vector3 FindTarget()
     {
-        GameObject enemyMissile = enemyMissileObjectPool.pool.BorrowFromPool();
-        enemyMissile.transform.position = new Vector2(0, 10f);
-
-        Quaternion rotationTarget = Quaternion.Euler(0, 0, 180f);
-        enemyMissile.transform.rotation = rotationTarget;
-
-        // Pick a random spot in the sky
-
-        // Pick a random place on the city
-
-        // Fire
-        enemyMissile.GetComponent<MissileMovementScript>().SetForceVector(new Vector2(0, -120f));
+        // it seems you need -10f for Quaternion.LookRotation to work correctly
+        return new Vector3(3f, 0, -10f);
     }
+
+    private Vector2 GetMissileStartPosition()
+    {
+        return new Vector2(0, 10f);
+    }
+
 }

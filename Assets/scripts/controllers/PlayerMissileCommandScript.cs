@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMissileCommandScript : MonoBehaviour
 {
     private MissileObjectPool playerMissilePool;
+
     private Camera cam;
     private float timeSinceLastFired;
 
@@ -26,10 +27,12 @@ public class PlayerMissileCommandScript : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 position = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 target = cam.ScreenToWorldPoint(Input.mousePosition);
             if (CanShootMissile())
             {
-                FireMissile(position);
+                GameObject missile = playerMissilePool.pool.BorrowFromPool();
+                missile.GetComponent<ReachDestination>().SetMissileTarget(target);
+                missile.GetComponent<MissileMovementScript>().FireMissile(GameConstants.PlayerMissileSpawnLocation, target);
                 timeSinceLastFired = 0;
             }
         }
@@ -42,27 +45,5 @@ public class PlayerMissileCommandScript : MonoBehaviour
     public bool CanShootMissile()
     {
         return timeSinceLastFired >= 1.5f;
-    }
-
-    /// <summary>
-    /// Fire a missile at the specified location on the screen.
-    /// Will prepare the direction, speed at the target and 
-    /// </summary>
-    /// <param name="target">Target.</param>
-    public void FireMissile(Vector3 target)
-    {
-        GameObject missile = playerMissilePool.pool.BorrowFromPool();
-
-        // set position and rotation of the spawned missile
-        missile.transform.position = GameConstants.PlayerMissileSpawnLocation;
-
-        Quaternion targetRotation = Quaternion.LookRotation(missile.transform.position - target, Vector3.forward);
-        missile.transform.rotation = targetRotation;
-        missile.transform.eulerAngles = new Vector3(0, 0, missile.transform.eulerAngles.z);
-
-        // set force vector on missile
-        Vector2 force = target - GameConstants.PlayerMissileSpawnLocation;
-        Vector2 normalizedForce = GameUtils.NormalizeVector(force, GameConstants.PlayerMissileSpeedPerSecond);
-        missile.GetComponent<MissileMovementScript>().SetForceVector(normalizedForce);
     }
 }
