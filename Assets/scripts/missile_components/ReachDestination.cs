@@ -4,31 +4,28 @@ using System.Collections;
 public class ReachDestination : MonoBehaviour
 {
     private Vector2 target = Vector2.zero;
-    private MissileInPlay missileInPlay;
     private MissileMovementScript missileMovement;
 
-	private void Start()
-	{
-        missileInPlay = GetComponent<MissileInPlay>();
+    private void Start()
+    {
         missileMovement = GetComponent<MissileMovementScript>();
-	}
+    }
 
-	// Update is called once per frame
-	void FixedUpdate()
-	{
-        if (!missileInPlay.inPlay)
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (!missileMovement.inPlay)
         {
             return;
         }
 
         if (ReachedTarget())
         {
-            target = Vector2.zero;
-            missileMovement.MoveBackToStartPosition();
+            ResetMissile();
         }
-	}
+    }
 
-    public void SetMissileTarget(Vector2 targetPosition)
+	public void SetMissileTarget(Vector2 targetPosition)
     {
         target = targetPosition;
     }
@@ -37,5 +34,13 @@ public class ReachDestination : MonoBehaviour
     {
         Vector2 distance = target - (Vector2)transform.position;
         return Mathf.Abs(distance.magnitude) <= .3;
+
+        // instantiate an explosion and see if there are any nearby missiles
+    }
+
+    private void ResetMissile()
+    {
+        target = Vector2.zero;
+        missileMovement.MoveBackToStartPosition();
     }
 }

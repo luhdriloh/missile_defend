@@ -6,16 +6,24 @@ public class MissileMovementScript : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
     private Vector2 forceVector;
+    public bool inPlay;
 
     // called when a prefab is instantiated
     private void Awake()
     {
+        inPlay = false;
         rigidBody = GetComponent<Rigidbody2D>();
         forceVector = Vector2.zero;
     }
 
     private void FixedUpdate()
     {
+        if (!inPlay)
+        {
+            rigidBody.velocity = Vector2.zero;
+            return;
+        }
+
         rigidBody.AddForce(forceVector * Time.fixedDeltaTime);
     }
 
@@ -36,8 +44,11 @@ public class MissileMovementScript : MonoBehaviour
 
         // set force vector on missile
         Vector2 force = (Vector2)target - fromPosition;
+
+        // I found out that vector has a normalize force alread :(
         Vector2 normalizedForce = GameUtils.NormalizeVector(force, GameConstants.PlayerMissileSpeedPerSecond);
         forceVector = normalizedForce;
+        inPlay = true;
     }
 
     /// <summary>
@@ -48,5 +59,6 @@ public class MissileMovementScript : MonoBehaviour
         transform.position = GameConstants.PoolStartPosition;
         rigidBody.velocity = Vector2.zero;
         forceVector = Vector2.zero;
+        inPlay = false;
     }
 }

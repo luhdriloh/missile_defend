@@ -7,6 +7,9 @@ public class EnemyMissileCommandScript : MonoBehaviour
     private float timeSinceLastLaunch;
     private float timeLeftForNextLaunch;
 
+    public float minX;
+    public float maxX;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -22,15 +25,14 @@ public class EnemyMissileCommandScript : MonoBehaviour
 
         if (TimeToFire())
         {
-            Vector2 target = FindTarget();
+            Vector3 target = FindTarget();
+            Debug.Log("target\nX: " + target.x + "\nY: " + target.y);
 
             GameObject missile = enemyMissilePool.pool.BorrowFromPool();
-
-            missile.GetComponent<MissileMovementScript>().FireMissile(GetMissileStartPosition(), FindTarget());
+            missile.GetComponent<ReachDestination>().SetMissileTarget(target);
+            missile.GetComponent<MissileMovementScript>().FireMissile(GetMissileStartPosition(), target);
             timeSinceLastLaunch = 0f;
-            // todo: change time left for next launch here
         }
-
 	}
 
     /// <summary>
@@ -54,12 +56,12 @@ public class EnemyMissileCommandScript : MonoBehaviour
     private Vector3 FindTarget()
     {
         // it seems you need -10f for Quaternion.LookRotation to work correctly
-        return new Vector3(3f, 0, -10f);
+        return new Vector3(Random.Range(minX, maxX), GameConstants.GameFloorYPosition, -10f);
     }
 
     private Vector2 GetMissileStartPosition()
     {
-        return new Vector2(0, 10f);
+        return new Vector2(Random.Range(minX, maxX), 10f);
     }
 
 }
