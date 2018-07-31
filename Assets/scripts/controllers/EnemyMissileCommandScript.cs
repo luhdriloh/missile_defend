@@ -11,7 +11,7 @@ public class EnemyMissileCommandScript : MonoBehaviour
 	void Start()
 	{
         timeSinceLastLaunch = 0f;
-        timeLeftForNextLaunch = 1f;
+        timeLeftForNextLaunch = 5f;
         enemyMissileObjectPool = GetComponent<MissileObjectPool>();
 	}
 
@@ -31,7 +31,7 @@ public class EnemyMissileCommandScript : MonoBehaviour
 
     private bool TimeToFire()
     {
-        if (timeLeftForNextLaunch >= timeSinceLastLaunch) {
+        if (timeSinceLastLaunch >= timeLeftForNextLaunch) {
             return true;
         }
 
@@ -40,10 +40,17 @@ public class EnemyMissileCommandScript : MonoBehaviour
 
     public void FireMissile()
     {
+        GameObject enemyMissile = enemyMissileObjectPool.pool.BorrowFromPool();
+        enemyMissile.transform.position = new Vector2(0, 10f);
+
+        Quaternion rotationTarget = Quaternion.Euler(0, 0, 180f);
+        enemyMissile.transform.rotation = rotationTarget;
+
         // Pick a random spot in the sky
 
         // Pick a random place on the city
 
         // Fire
+        enemyMissile.GetComponent<MissileMovementScript>().SetForceVector(new Vector2(0, -120f));
     }
 }
