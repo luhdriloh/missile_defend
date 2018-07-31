@@ -113,6 +113,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &36452113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 36452116}
+  - component: {fileID: 36452115}
+  - component: {fileID: 36452114}
+  m_Layer: 0
+  m_Name: EnemyMissileCommand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &36452114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 36452113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb306ff3d7b24c7da87178c1eb006b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  protoTypeObject: {fileID: 1330470893276156, guid: ec59bfca70ab94ce8ae611a9dde96733,
+    type: 2}
+  prefabName: EnemyMissile
+  poolSize: 5
+  pool: {fileID: 0}
+--- !u!114 &36452115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 36452113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb56f056453a42bb9e74f04dde9a68c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &36452116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 36452113}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.19096857}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &167632657
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,9 +253,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 425070075}
+  - component: {fileID: 425070076}
   - component: {fileID: 425070074}
   m_Layer: 0
-  m_Name: MissileCommand
+  m_Name: PlayerMissileCommand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,10 +270,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 425070073}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0484361e2dabb4042ab6ccf14b0ac558, type: 3}
+  m_Script: {fileID: 11500000, guid: abb306ff3d7b24c7da87178c1eb006b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missile: {fileID: 1330470893276156, guid: ec59bfca70ab94ce8ae611a9dde96733, type: 2}
+  protoTypeObject: {fileID: 1330470893276156, guid: ec59bfca70ab94ce8ae611a9dde96733,
+    type: 2}
+  prefabName: PlayerMissile
+  poolSize: 6
+  pool: {fileID: 0}
 --- !u!4 &425070075
 Transform:
   m_ObjectHideFlags: 0
@@ -229,6 +291,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &425070076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 425070073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b9a10be23114fc181eea04d5bf2b7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

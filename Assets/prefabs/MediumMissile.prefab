@@ -19,9 +19,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4563376759336074}
+  - component: {fileID: 50260762808972788}
   - component: {fileID: 212316529302260802}
   - component: {fileID: 114794909868703032}
-  - component: {fileID: 50260762808972788}
+  - component: {fileID: 114229377233201576}
   m_Layer: 0
   m_Name: MediumMissile
   m_TagString: Untagged
@@ -62,6 +63,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &114229377233201576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330470893276156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d088d6f5de9354c49925513ebbc25f4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outOfBounds: 1
 --- !u!114 &114794909868703032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,7 +119,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1575144911
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 760171d711cd747e19889db3e8b6f9bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

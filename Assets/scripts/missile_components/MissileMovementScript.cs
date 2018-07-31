@@ -7,17 +7,16 @@ public class MissileMovementScript : MonoBehaviour
     private Rigidbody2D rigidBody;
     private Vector2 forceVector;
 
-    // Use this for initialization
-    void Start()
+    // called when a prefab is instantiated
+    private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        rigidBody.AddForce(new Vector2(0, 10f));
+        forceVector = Vector2.zero;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        rigidBody.AddForce(forceVector);
+        rigidBody.AddForce(forceVector * Time.fixedDeltaTime);
     }
 
     public void SetForceVector(Vector2 vector)
