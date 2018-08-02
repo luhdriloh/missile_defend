@@ -24,8 +24,8 @@ public class ExplosionScript : MonoBehaviour
 
     public void Explode(Vector3 position)
     {
-        inUse = true;
         transform.position = position;
+        inUse = true;
         animator.Play("Explosion");
         Invoke("MoveBackToPool", .8f);
     }

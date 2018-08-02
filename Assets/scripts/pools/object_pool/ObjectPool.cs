@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public ObjectPoolConfiguration poolConfig;
-    public GameObject[] pool;
+    public List<GameObject> pool;
     public int indexOfNextBorrowedObject;
 
     public ObjectPool(ObjectPoolConfiguration config)
@@ -17,11 +17,11 @@ public class ObjectPool : MonoBehaviour
     private void InstantiatePool()
     {
         indexOfNextBorrowedObject = 0;
-        pool = new GameObject[poolConfig.poolSize];
+        pool = new List<GameObject>();
 
         for (int i = 0; i < poolConfig.poolSize; i++)
         {
-            pool[i] = (GameObject)Instantiate(poolConfig.prefab, poolConfig.initialPosition, Quaternion.identity);
+            pool.Add((GameObject)Instantiate(poolConfig.prefab, poolConfig.initialPosition, Quaternion.identity));
             pool[i].name = poolConfig.prefabTagName;
         }
     }

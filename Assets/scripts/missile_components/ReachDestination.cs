@@ -27,14 +27,13 @@ public class ReachDestination : MonoBehaviour
         if (ReachedTarget())
         {
             Vector2 explosionLocation = transform.position;
-            Debug.Log("explode pos\nx: " + explosion.transform.position.x + "\ny: " + explosion.transform.position.y);
+
             ResetMissile();
             explosionToUse.GetComponent<ExplosionScript>().Explode(explosionLocation);
-            Debug.Log("setting explode to true");
         }
     }
 
-	public void SetMissileTarget(Vector2 targetPosition)
+    public void SetMissileTarget(Vector2 targetPosition)
     {
         target = targetPosition;
     }

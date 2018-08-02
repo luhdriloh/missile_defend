@@ -27,13 +27,18 @@ public class MissileMovementScript : MonoBehaviour
         rigidBody.AddForce(forceVector * Time.fixedDeltaTime);
     }
 
-    /// <summary>
-    /// Fire a missile at the specified location on the screen.
-    /// Will prepare the direction, speed at the target and 
-    /// </summary>
-    /// <param name="fromPosition">The position from which to fire from.</param>
-    /// <param name="target">Target.</param>
-    public void FireMissile(Vector2 fromPosition, Vector3 target)
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		// when the missile get hit by an explosion we need to move it back to the start position
+	}
+
+	/// <summary>
+	/// Fire a missile at the specified location on the screen.
+	/// Will prepare the direction, speed at the target and 
+	/// </summary>
+	/// <param name="fromPosition">The position from which to fire from.</param>
+	/// <param name="target">Target.</param>
+	public void FireMissile(Vector2 fromPosition, Vector3 target, float speed)
     {
         // set position and rotation of the spawned missile
         transform.position = fromPosition;
@@ -46,7 +51,8 @@ public class MissileMovementScript : MonoBehaviour
         Vector2 force = (Vector2)target - fromPosition;
 
         // I found out that vector has a normalize force alread :(
-        Vector2 normalizedForce = GameUtils.NormalizeVector(force, GameConstants.PlayerMissileSpeedPerSecond);
+        rigidBody.velocity = Vector2.zero;
+        Vector2 normalizedForce = force.normalized * speed;
         forceVector = normalizedForce;
         inPlay = true;
     }

@@ -44,11 +44,11 @@ TagManager:
   - name: background
     uniqueID: 4089127011
     locked: 0
-  - name: water
-    uniqueID: 253694543
-    locked: 0
   - name: bridge
     uniqueID: 3445059851
+    locked: 0
+  - name: water
+    uniqueID: 253694543
     locked: 0
   - name: foreground
     uniqueID: 2719822385

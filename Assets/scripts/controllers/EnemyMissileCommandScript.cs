@@ -29,7 +29,7 @@ public class EnemyMissileCommandScript : MonoBehaviour
 
             GameObject missile = enemyMissilePool.pool.BorrowFromPool();
             missile.GetComponent<ReachDestination>().SetMissileTarget(target);
-            missile.GetComponent<MissileMovementScript>().FireMissile(GetMissileStartPosition(), target);
+            missile.GetComponent<MissileMovementScript>().FireMissile(GetMissileStartPosition(), target, GameConstants.EnemyMissileSpeedPerSecond);
             timeSinceLastLaunch = 0f;
         }
 	}
