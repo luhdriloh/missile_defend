@@ -16,8 +16,6 @@ public class PlayerMissileCommandScript : MonoBehaviour
         playerMissilePool = GetComponent<MissileObjectPool>();
 
         cam = Camera.main;
-        Debug.Log("Camera width: " + cam.pixelWidth);
-        Debug.Log("Camera height " + cam.pixelHeight);
     }
 
     // Update is called once per frame

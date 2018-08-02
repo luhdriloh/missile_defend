@@ -14,6 +14,5 @@ public class CityScript : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
         Debug.Log("The city got hit");
-		
 	}
 }

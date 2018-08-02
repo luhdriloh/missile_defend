@@ -26,7 +26,6 @@ public class EnemyMissileCommandScript : MonoBehaviour
         if (TimeToFire())
         {
             Vector3 target = FindTarget();
-            Debug.Log("target\nX: " + target.x + "\nY: " + target.y);
 
             GameObject missile = enemyMissilePool.pool.BorrowFromPool();
             missile.GetComponent<ReachDestination>().SetMissileTarget(target);

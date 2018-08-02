@@ -3,11 +3,16 @@ using System.Collections;
 
 public class ReachDestination : MonoBehaviour
 {
+    public GameObject explosion;
+
+    public GameObject explosionToUse;
+
     private Vector2 target = Vector2.zero;
     private MissileMovementScript missileMovement;
 
     private void Start()
     {
+        explosionToUse = Instantiate(explosion, transform.position, Quaternion.identity);
         missileMovement = GetComponent<MissileMovementScript>();
     }
 
@@ -21,6 +26,9 @@ public class ReachDestination : MonoBehaviour
 
         if (ReachedTarget())
         {
+            Debug.Log("explode pos\nx: " + explosion.transform.position.x + "\ny: " + explosion.transform.position.y);
+            explosionToUse.GetComponent<ExplosionScript>().Explode(transform.position);
+            Debug.Log("setting explode to true");
             ResetMissile();
         }
     }
@@ -34,8 +42,6 @@ public class ReachDestination : MonoBehaviour
     {
         Vector2 distance = target - (Vector2)transform.position;
         return Mathf.Abs(distance.magnitude) <= .3;
-
-        // instantiate an explosion and see if there are any nearby missiles
     }
 
     private void ResetMissile()
