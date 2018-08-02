@@ -26,10 +26,11 @@ public class ReachDestination : MonoBehaviour
 
         if (ReachedTarget())
         {
+            Vector2 explosionLocation = transform.position;
             Debug.Log("explode pos\nx: " + explosion.transform.position.x + "\ny: " + explosion.transform.position.y);
-            explosionToUse.GetComponent<ExplosionScript>().Explode(transform.position);
-            Debug.Log("setting explode to true");
             ResetMissile();
+            explosionToUse.GetComponent<ExplosionScript>().Explode(explosionLocation);
+            Debug.Log("setting explode to true");
         }
     }
 
