@@ -5,29 +5,19 @@ using UnityEngine.UI;
 
 public class CityScript : MonoBehaviour
 {
-    public Text healthText;
     public float health;
-
-    private readonly string healthString = "CITY HEALTH: {0}";
 
 	private void Start()
 	{
         health = 100f;
-        Debug.Log("Health: " + health);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
         if (collision.gameObject.name.Equals("EnemyMissile"))
         {
-            Debug.Log("enemy missile hit");
             health -= 20f;
-            UpdateCityHealth();
+            GameController.instance.UpdateCityHealth(health);
         }
 	}
-
-    private void UpdateCityHealth()
-    {
-        healthText.text = string.Format(healthString, health);
-    }
 }

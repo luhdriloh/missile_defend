@@ -13,6 +13,7 @@ public class ReachDestination : MonoBehaviour
     private void Start()
     {
         explosionToUse = Instantiate(explosion, transform.position, Quaternion.identity);
+        explosionToUse.name = "Explosion";
         missileMovement = GetComponent<MissileMovementScript>();
     }
 

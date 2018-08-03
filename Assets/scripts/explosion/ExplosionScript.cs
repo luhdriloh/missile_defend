@@ -14,14 +14,6 @@ public class ExplosionScript : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (inUse)
-        {
-            Debug.Log("Explosion hit another object: " + collision.gameObject.name);
-        }
-    }
-
     public void Explode(Vector3 position)
     {
         transform.position = position;
@@ -35,5 +27,4 @@ public class ExplosionScript : MonoBehaviour
         inUse = false;
         transform.position = GameConstants.PoolStartPosition;
     }
-
 }

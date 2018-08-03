@@ -33,6 +33,11 @@ public class MissileMovementScript : MonoBehaviour
 	{
         if (inPlay && !collision.name.Equals("City"))
         {
+            if (collision.name.Equals("PlayerMissile") || collision.name.Equals("Explosion"))
+            {
+                GameController.instance.StoppedEnemyMissile();
+            }
+
             destination.CreateExplosion();           
         }
 	}
