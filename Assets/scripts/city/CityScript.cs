@@ -20,9 +20,8 @@ public class CityScript : MonoBehaviour
 	{
         if (collision.gameObject.name.Equals("EnemyMissile"))
         {
-            Debug.Log("The city got hit by an enemy missile!");
+            Debug.Log("enemy missile hit");
             health -= 20f;
-            Debug.Log("Health: " + health);
             UpdateCityHealth();
         }
 	}

@@ -5,6 +5,7 @@ using UnityEngine;
 public class MissileMovementScript : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
+    private ReachDestination destination;
     private Vector2 forceVector;
     public bool inPlay;
 
@@ -13,6 +14,7 @@ public class MissileMovementScript : MonoBehaviour
     {
         inPlay = false;
         rigidBody = GetComponent<Rigidbody2D>();
+        destination = GetComponent<ReachDestination>();
         forceVector = Vector2.zero;
     }
 
@@ -29,7 +31,10 @@ public class MissileMovementScript : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		// when the missile get hit by an explosion we need to move it back to the start position
+        if (inPlay && !collision.name.Equals("City"))
+        {
+            destination.CreateExplosion();           
+        }
 	}
 
 	/// <summary>
@@ -38,7 +43,7 @@ public class MissileMovementScript : MonoBehaviour
 	/// </summary>
 	/// <param name="fromPosition">The position from which to fire from.</param>
 	/// <param name="target">Target.</param>
-	public void FireMissile(Vector2 fromPosition, Vector3 target, float speed)
+	public void FireMissile(Vector3 fromPosition, Vector3 target, float speed)
     {
         // set position and rotation of the spawned missile
         transform.position = fromPosition;
@@ -48,7 +53,7 @@ public class MissileMovementScript : MonoBehaviour
         transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
 
         // set force vector on missile
-        Vector2 force = (Vector2)target - fromPosition;
+        Vector2 force = target - fromPosition;
 
         // I found out that vector has a normalize force alread :(
         rigidBody.velocity = Vector2.zero;

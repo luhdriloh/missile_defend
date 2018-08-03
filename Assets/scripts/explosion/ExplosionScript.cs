@@ -18,7 +18,7 @@ public class ExplosionScript : MonoBehaviour
     {
         if (inUse)
         {
-            Debug.Log("Collided with another object: " + collision.gameObject.name);
+            Debug.Log("Explosion hit another object: " + collision.gameObject.name);
         }
     }
 

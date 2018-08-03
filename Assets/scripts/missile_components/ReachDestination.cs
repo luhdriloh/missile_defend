@@ -26,10 +26,7 @@ public class ReachDestination : MonoBehaviour
 
         if (ReachedTarget())
         {
-            Vector2 explosionLocation = transform.position;
-
-            ResetMissile();
-            explosionToUse.GetComponent<ExplosionScript>().Explode(explosionLocation);
+            CreateExplosion();
         }
     }
 
@@ -38,7 +35,15 @@ public class ReachDestination : MonoBehaviour
         target = targetPosition;
     }
 
-    public bool ReachedTarget()
+    public void CreateExplosion()
+    {
+        Vector2 explosionLocation = transform.position;
+
+        ResetMissile();
+        explosionToUse.GetComponent<ExplosionScript>().Explode(explosionLocation);
+    }
+
+    private bool ReachedTarget()
     {
         Vector2 distance = target - (Vector2)transform.position;
         return Mathf.Abs(distance.magnitude) <= .3;

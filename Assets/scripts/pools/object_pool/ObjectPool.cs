@@ -21,8 +21,9 @@ public class ObjectPool : MonoBehaviour
 
         for (int i = 0; i < poolConfig.poolSize; i++)
         {
-            pool.Add((GameObject)Instantiate(poolConfig.prefab, poolConfig.initialPosition, Quaternion.identity));
-            pool[i].name = poolConfig.prefabTagName;
+            GameObject toAdd = (GameObject)Instantiate(poolConfig.prefab, poolConfig.initialPosition, Quaternion.identity);
+            toAdd.name = poolConfig.prefabTagName;
+            pool.Add(toAdd);
         }
     }
 
