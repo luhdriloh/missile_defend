@@ -6,29 +6,29 @@ public class MissileMovementScript : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
     private ReachDestination destination;
-    private Vector2 forceVector;
     public bool inPlay;
 
-    // called when a prefab is instantiated
+
     private void Awake()
     {
         inPlay = false;
         rigidBody = GetComponent<Rigidbody2D>();
         destination = GetComponent<ReachDestination>();
-        forceVector = Vector2.zero;
     }
 
     private void FixedUpdate()
     {
         if (!inPlay)
         {
-            rigidBody.velocity = Vector2.zero;
+            rigidBody.velocity = Vector3.zero;
             return;
         }
-
-        rigidBody.AddForce(forceVector * Time.fixedDeltaTime);
     }
 
+    /// <summary>
+    /// This is for when the enemy missile gets hit by a player missile or an explosion
+    /// </summary>
+    /// <param name="collision">The collision.</param>
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
         if (inPlay && !collision.name.Equals("City"))
@@ -48,22 +48,23 @@ public class MissileMovementScript : MonoBehaviour
 	/// </summary>
 	/// <param name="fromPosition">The position from which to fire from.</param>
 	/// <param name="target">Target.</param>
-	public void FireMissile(Vector3 fromPosition, Vector3 target, float speed)
+	public void FireMissile(Vector2 fromPosition, Vector2 target, float speed)
     {
         // set position and rotation of the spawned missile
         transform.position = fromPosition;
 
-        Quaternion targetRotation = Quaternion.LookRotation(transform.position - target, Vector3.forward);
-        transform.rotation = targetRotation;
-        transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+        Vector2 direction = target - fromPosition;
+        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = rotation;
+
+        rigidBody.angularVelocity = 0f;
 
         // set force vector on missile
         Vector2 force = target - fromPosition;
 
         // I found out that vector has a normalize force alread :(
-        rigidBody.velocity = Vector2.zero;
-        Vector2 normalizedForce = force.normalized * speed;
-        forceVector = normalizedForce;
+        rigidBody.AddForce(gameObject.transform.up * speed);
         inPlay = true;
     }
 
@@ -73,8 +74,7 @@ public class MissileMovementScript : MonoBehaviour
     public void MoveBackToStartPosition()
     {
         transform.position = GameConstants.PoolStartPosition;
-        rigidBody.velocity = Vector2.zero;
-        forceVector = Vector2.zero;
+        rigidBody.velocity = Vector3.zero;
         inPlay = false;
     }
 }

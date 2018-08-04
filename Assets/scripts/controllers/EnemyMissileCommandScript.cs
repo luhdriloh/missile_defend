@@ -4,6 +4,8 @@ using System.Collections;
 public class EnemyMissileCommandScript : MonoBehaviour
 {
     private MissileObjectPool enemyMissilePool;
+    private ReachDestination destination;
+    private MissileMovementScript missileMovement;
     private float timeSinceLastLaunch;
     private float timeLeftForNextLaunch;
 
@@ -23,7 +25,7 @@ public class EnemyMissileCommandScript : MonoBehaviour
 	{
         timeSinceLastLaunch += Time.deltaTime;
 
-        if (TimeToFire())
+        if (TimeToFire() && !GameController.instance.gameover)
         {
             Vector3 target = FindTarget();
 

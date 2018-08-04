@@ -23,14 +23,14 @@ public class PlayerMissileCommandScript : MonoBehaviour
     {
         timeSinceLastFired += Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !GameController.instance.gameover)
         {
-            Vector3 target = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 target = cam.ScreenToWorldPoint(Input.mousePosition);
             if (CanShootMissile())
             {
                 GameObject missile = playerMissilePool.pool.BorrowFromPool();
-                missile.GetComponent<ReachDestination>().SetMissileTarget(target);
                 missile.GetComponent<MissileMovementScript>().FireMissile(GameConstants.PlayerMissileSpawnLocation, target, GameConstants.PlayerMissileSpeedPerSecond);
+                missile.GetComponent<ReachDestination>().SetMissileTarget(target);
                 timeSinceLastFired = 0;
             }
         }

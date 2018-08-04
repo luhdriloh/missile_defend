@@ -14,6 +14,9 @@ public class ObjectPool : MonoBehaviour
         InstantiatePool();
     }
 
+    /// <summary>
+    /// Instantiates the pool using the configuration that was passed in
+    /// </summary>
     private void InstantiatePool()
     {
         indexOfNextBorrowedObject = 0;
@@ -27,6 +30,10 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Borrows an object from the pool
+    /// </summary>
+    /// <returns>A game object from the</returns>
     public GameObject BorrowFromPool()
     {
         int index = indexOfNextBorrowedObject;
@@ -35,7 +42,10 @@ public class ObjectPool : MonoBehaviour
 
     }
 
-    // maybe take a delegate as a parameter and see what needs to be done
+    /// <summary>
+    /// Returns an object to the pool, although I'm not using it
+    /// </summary>
+    /// <param name="obj">The object to return</param>
     public void ReturnToPool(GameObject obj)
     {
         obj.transform.position = poolConfig.initialPosition;
